@@ -22,6 +22,7 @@ def load_features():
             name_np=np.concatenate(name,axis=0)
 
             descs[desc]=torch.tensor(feat_np.reshape([feat_np.shape[0],-1])).cuda()
+            #descs[desc]=torch.tensor(feat_np.reshape([feat_np.shape[0],-1]))
             descs['names']=name_np
             print(descs['names'].shape)
 

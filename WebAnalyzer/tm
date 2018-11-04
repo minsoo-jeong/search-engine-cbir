@@ -81,16 +81,13 @@ def similarity_search(query,options):
         name=[]
         for i,dt in enumerate(db.keys()):
             tmp.append(db[dt][feature])
-            #name.append([os.path.join(dt,n) for n in db[dt]['names']])
-            name.extend([os.path.join(dt,n.decode()) for n in db[dt]['names']])
+            name.append([os.path.join(dt,n) for n in db[dt]['names']])
         f=torch.cat(tmp,0)
-        name=np.array(name)
-
+        print(len(name))
     else:
         f=db[dataset][feature]
-        #name=db[dataset]['names']
-        name=np.array([os.path.join(dataset,n.decode()) for n in db[dataset]['names']])
-
+        name=db[dataset]['names']
+        print(len(name))
 
     print("select features :"+feature,dataset)
     print("dataset size : ",f.shape)
@@ -133,8 +130,7 @@ def similarity_search(query,options):
 
    # ret=[{'name':i.decode(),'similarity':str(score[topN-n-1]),'image':str(base64.b64encode(open(os.path.join(imgPath,dataset,i.decode()),'rb').read()))} for n,i in enumerate(reversed(name[idx]))]
 
-    ret=[{'name':i,'similarity':str(round(score[score.shape[0]-n-1],3)),'image':str(base64.b64encode(open(os.path.join(imgPath,i),'rb').read()))} for n,i in enumerate(reversed(name[idx]))]
+    ret=[{'name':i.decode(),'similarity':str(round(score[score.shape[0]-n-1],3)),'image':str(base64.b64encode(open(os.path.join(imgPath,dataset,i.decode()),'rb').read()))} for n,i in enumerate(reversed(name[idx]))]
 
     return ret
-
 

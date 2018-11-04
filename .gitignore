@@ -116,3 +116,5 @@ celerybeat-schedule
 Modules/Extractor/
 data/*
 media/*
+
+*.swp
